@@ -2,4 +2,4 @@
 
 docker-compose up --build
 
-docker-compose up --scale client=3
+docker-compose up --scale client=5
