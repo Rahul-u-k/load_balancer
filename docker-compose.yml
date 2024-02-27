@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  server1:
+    build: 
+      context: ./server
+    ports:
+      - "8000:8000"
+
+  server2:
+    build: 
+      context: ./server
+    ports:
+      - "8001:8000"
+
+  client:
+    build: 
+      context: ./client
+    command: ["python", "client.py"]
+
+  load_balancer:
+    build: 
+      context: ./load_balancer
+    ports:
+      - "8002:8001"
+
+  confirmation_page:
+    build:
+      context: ./confirmation_page
+    ports:
+      - "8080:8080"
