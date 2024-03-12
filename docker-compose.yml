@@ -13,6 +13,26 @@ services:
     ports:
       - "8001:8000"
 
+  server3:
+    build: 
+      context: ./server
+    ports:
+      - "8005:8000"
+
+  server4:
+    build: 
+      context: ./server
+    ports:
+      - "8003:8000"
+
+  server5:
+    build: 
+      context: ./server
+    ports:
+      - "8004:8000"
+
+  
+
   client:
     build: 
       context: ./client
