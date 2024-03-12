@@ -22,15 +22,28 @@ def send_request():
         print(f"Received from server: {data.decode()}, RTT: {rtt:.6f} seconds")
         
         client_socket.close()
+        
+        return rtt  # Return the RTT value
     except ConnectionRefusedError as cre:
         print("Connection refused:", cre)
         print("Make sure the load balancer and servers are running.")
+        return None
     except Exception as e:
         print("Error:", e)
+        return None
 
 if __name__ == "__main__":
     num_requests = 5  # Number of requests to send
     delay_between_requests = 1  # Delay between each request in seconds
+    total_rtt = 0.0  # Initialize total RTT
     for _ in range(num_requests):
-        send_request()
+        rtt = send_request()
+        if rtt is not None:
+            total_rtt += rtt
         time.sleep(delay_between_requests)  # Introduce delay between requests
+    
+    if total_rtt != 0:
+        average_rtt = total_rtt / num_requests
+        print(f"Average RTT: {average_rtt:.6f} seconds")
+    else:
+        print("No valid RTT measurements to calculate average.")
